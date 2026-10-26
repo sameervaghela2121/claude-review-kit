@@ -1,0 +1,8 @@
+{
+  "name": "review-kit",
+  "version": "1.0.0",
+  "description": "Sets up the AI-assisted code review process (CLAUDE.md, REVIEW.md, hooks, pre-PR checks, CI review) in any repository",
+  "author": {
+    "name": "Sameer Vaghela"
+  }
+}

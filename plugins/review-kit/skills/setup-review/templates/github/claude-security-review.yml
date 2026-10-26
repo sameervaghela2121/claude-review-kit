@@ -1,0 +1,35 @@
+# Claude security review - comments on PRs with security findings.
+# Make it a required status check; authors fix each finding or resolve the thread with a reason.
+# Needs: secret ANTHROPIC_API_KEY (a Claude Console API key enabled for Claude Code).
+name: Claude Security Review
+
+on:
+  pull_request:
+
+permissions:
+  pull-requests: write
+  contents: read
+
+concurrency:
+  group: claude-security-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  security-review:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 2
+
+      # Pin to a commit SHA once you have tested it: anthropics/claude-code-security-review@<sha>
+      - uses: anthropics/claude-code-security-review@main
+        with:
+          comment-pr: true
+          claude-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          exclude-directories: "<GENERATED_AND_VENDORED_DIRS - comma separated, e.g. node_modules,build,src/gen>"
+          # Optional: this repo's threat model and sensitive areas.
+          # custom-security-scan-instructions: .github/claude-security-instructions.txt

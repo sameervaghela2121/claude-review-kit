@@ -1,0 +1,14 @@
+{
+  "name": "claude-review-kit",
+  "description": "Claude Code plugins for AI-assisted code review",
+  "owner": {
+    "name": "Sameer Vaghela"
+  },
+  "plugins": [
+    {
+      "name": "review-kit",
+      "source": "./plugins/review-kit",
+      "description": "Sets up the AI-assisted code review process (CLAUDE.md, REVIEW.md, hooks, pre-PR checks, CI review) in any repository"
+    }
+  ]
+}
